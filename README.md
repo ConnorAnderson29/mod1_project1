@@ -1,8 +1,5 @@
-## Data Science Project 1 - Housing Feature Analysis
-**Created by:** Andy Luc and Connor Anderson  
-**Student Pace:** Full-Time Data Science  
-**Scheduled project review date/time:** 04/19/2019  
-**Instructors:** Miles Erickson & Greg Damico  
+## Housing Feature Analysis
+**Created by:** Andy Luc and Connor Anderson   
   
 **Blog Post URL:** https://dev.to/rokaandy/logarithmic-transformation-in-linear-regression-models-why-when-3a7c  
 **Slide Deck Presentation Link:** https://docs.google.com/presentation/d/1HIq4f5RjB3SX3YhBeCwdoo9FX8kIVZmTKjEwPk2GQfA/edit?usp=sharing
