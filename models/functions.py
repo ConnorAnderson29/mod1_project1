@@ -1,3 +1,15 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+import sklearn
+from sklearn import metrics
+from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+
+
 def create_models(df, feature_cols):
     '''This is a function that outputs the Intercept, Coefficients, 3 types of Errors, and R-Squared'''
     X = df[feature_cols]
@@ -30,3 +42,45 @@ def create_models(df, feature_cols):
     print(np.log(metrics.mean_absolute_error(standardized_y, predictions)))
     print('LR Coef')
     print(np.exp(lr.coef_))
+    
+    
+def clean_housing_data(data):
+    data['sqft_basement'] = data['sqft_basement'].replace("?",0)
+    data['sqft_basement'] = data['sqft_basement'].astype(float)
+    data['zipcode'] = data['zipcode'].astype(str)
+
+    data = data[~np.isnan(data['waterfront'])]
+    data = data[~np.isnan(data['view'])]
+
+    final = data.drop(['id','yr_renovated','lat','long'], axis=1)
+    return final
+
+def normalize_data(data): 
+    '''Normalize Housing Data '''
+    data['log_sqft'] = np.log(data['sqft_living'])
+    data['log_bedrooms'] = np.log(data['bedrooms'])
+    data['log_yr_built'] = np.log(data['yr_built'])
+    data['price'] = np.log(data['price'])
+    return data 
+
+def create_heatmap(data):
+    sns.set(style="white")
+
+    # Create a covariance matrix
+    corr = data.corr()
+
+    # Generate a mask the size of our covariance matrix
+    mask = np.zeros_like(corr, dtype=bool)
+    mask[np.triu_indices_from(mask)] = True
+
+    # Set up the matplotlib figure
+    f, ax = plt.subplots(figsize=(11,9))
+
+    # Generate a custom diverging colormap
+    cmap = sns.diverging_palette(220,10,as_cmap=True)
+
+    # Draw the heatmap with the mask and correct aspect ratio
+    sns.heatmap(corr,mask=mask,cmap=cmap,vmax=1,center=0,square=True, 
+                linewidth=.5, cbar_kws={'shrink': .5})
+
+    ax.set_title('Multi-Collinearity of Features')
