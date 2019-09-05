@@ -45,6 +45,7 @@ def create_models(df, feature_cols):
     
     
 def clean_housing_data(data):
+    '''Cleans data by removing question marks, and redefines types.'''
     data['sqft_basement'] = data['sqft_basement'].replace("?",0)
     data['sqft_basement'] = data['sqft_basement'].astype(float)
     data['zipcode'] = data['zipcode'].astype(str)
@@ -64,6 +65,7 @@ def normalize_data(data):
     return data 
 
 def create_heatmap(data):
+    '''Uses data to create a Correlation Matrix'''
     sns.set(style="white")
 
     # Create a covariance matrix
