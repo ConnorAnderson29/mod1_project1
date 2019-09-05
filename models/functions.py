@@ -30,12 +30,13 @@ def create_models(df, feature_cols):
 #     print(f'R-Squared:',round(lr.score(X,y),3))
 #     print('\n')
     
-    print(f'Mean Absolute Error exp:', np.exp(metrics.mean_absolute_error(y_test, y_pred)))
-    print(f'Mean Squared Error exp:', np.exp(metrics.mean_squared_error(y_test, y_pred)))
+    print(f'Mean Absolute Error:', np.exp(metrics.mean_absolute_error(y_test, y_pred)))
+    print(f'Mean Squared Error:', np.exp(metrics.mean_squared_error(y_test, y_pred)))
     print(f'Root Mean Squared Error:', np.exp(np.sqrt(metrics.mean_squared_error(y_test, y_pred))))
     predictions =  np.array(np.exp(lr.predict(X_test)))
     standardized_y= np.exp((y_test))
-    print(np.sqrt(sum((standardized_y - predictions) ** 2) / len(standardized_y)))
+    print('RMSE(US DOLLARS)', np.sqrt(sum((standardized_y - predictions) ** 2) / len(standardized_y)))
+    
     scores = cross_val_score(lr, X, y, cv=7)
     print('Cross Validated RMSE Scores', np.mean(scores))
     print('MAE')
